@@ -3,7 +3,7 @@
    :keywords: PCIe, PCIe atomics, atomics, AMD, ROCm
 
 *****************************************************************************
-How ROCm uses PCIe atomics
+How ROCm Uses PCIe Atomics
 *****************************************************************************
 AMD ROCm is an extension of the Heterogeneous System Architecture (HSA). To meet the requirement of an HSA-compliant system, ROCm must support queuing model, memory model, signaling, and synchronization protocols. To learn more about the requirement of HSA-compliant system, see 
 `HSA Platform System Architecture Specification <http://hsafoundation.com/wp-content/uploads/2021/02/HSA-SysArch-1.2.pdf>`_.
