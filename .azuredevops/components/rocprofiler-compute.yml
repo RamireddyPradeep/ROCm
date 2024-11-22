@@ -154,6 +154,7 @@ jobs:
         -DCMAKE_C_COMPILER=$(Agent.BuildDirectory)/rocm/llvm/bin/amdclang
         -DCMAKE_MODULE_PATH=$(Agent.BuildDirectory)/rocm/lib/cmake/hip
         -DCMAKE_PREFIX_PATH=$(Agent.BuildDirectory)/rocm
+        -DROCM_PATH=$(Agent.BuildDirectory)/rocm
         -DCMAKE_BUILD_TYPE=Release
         -DENABLE_TESTS=ON
         -DINSTALL_TESTS=ON
