@@ -41,6 +41,7 @@ parameters:
     - rocm-cmake
     - rocm-core
     - rocminfo
+    - rocm_smi_lib
     - ROCR-Runtime
     - rocprofiler
     - rocprofiler-register
