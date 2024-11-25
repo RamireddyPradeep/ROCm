@@ -3,14 +3,14 @@
    :keywords: PCIe, PCIe atomics, atomics, AMD, ROCm
 
 *****************************************************************************
-How ROCm Uses PCIe Atomics
+How ROCm uses PCIe atomics
 *****************************************************************************
 AMD ROCm is an extension of the Heterogeneous System Architecture (HSA). To meet the requirement of an HSA-compliant system, ROCm must support queuing model, memory model, signaling, and synchronization protocols. To learn more about the requirement of HSA-compliant system, see 
 `HSA Platform System Architecture Specification <http://hsafoundation.com/wp-content/uploads/2021/02/HSA-SysArch-1.2.pdf>`_.
 
 When memory operations like queuing, signaling, and synchronization needs to be performed across multiple CPUs and GPUs agents, platform atomics are required. Platform atomics ensures that atomic operations run synchronously without any interruption and conflict across multiple shared resources. Learn how platform atomics are supported in ROCm by Peripheral Component Interconnect Express 3.0 (PCIe™ 3.0).
 
-Usage of Platform Atomics in ROCm 
+Usage of platform atomics in ROCm 
 =====================================
 
 Platform atomics are the set of atomic operations that performs Read Modify Write (RMW) actions across multiple processor, devices, and memory location synchronously without any interruption. Platform atomics used in ROCm are:
@@ -20,7 +20,7 @@ Platform atomics are the set of atomic operations that performs Read Modify Writ
 * Update HSA queue's ``write_dispatch_id``: 64 bit atomic add used by the CPU and GPU agent. It supports multi-writer queue insertions.
 * Update HSA Signals: 64 bit atomic operation used for CPU & GPU synchronization.
 
-Atomic Operations
+Atomic operations
 -------------------
 An atomic operation is a sequence of computing instructions that are executed as a single, indivisible unit. These instructions needs to be completed at its entirety without any interruption or should not execute at all. It is a non-posted transaction supporting 32-bit and 64-bit address formats. A successful completion of these operations are identified by response of completion containing the operation result. However, any errors associated with the operation like issue in accessing the target location or executing the atomic operation are signaled to the requester by updating the Completion Status field present in the Completion Descriptor. Depending upon the error, the Completion Status field is updated to Completer Abort (CA) or Unsupported Request (UR).
 
@@ -45,7 +45,7 @@ To learn more about PCIe and its capabilities, see the listed white papers:
 * `PCIe Generation 4 Base Specification includes atomic operations <https://astralvx.com/storage/2020/11/PCI_Express_Base_4.0_Rev0.3_February19-2014.pdf>`_
 * `Xilinx PCIe Ultrascale White paper <https://docs.xilinx.com/v/u/8OZSA2V1b1LLU2rRCDVGQw>`_
 
-Working of PCIe 3.0 Atomic Operations in ROCm
+Working of PCIe 3.0 atomic operations in ROCm
 -------------------------------------------------
 
 The PCIe 3.0 atomic operations feature allows atomic transactions to be requested by, routed through, 
@@ -54,7 +54,7 @@ Component support for each can be identified by the Device Capabilities 2 (DevCa
 bridges needs to have atomic operations routing enabled. If not enabled, the atomic operations will fail even if the 
 PCIe endpoint and the PCIe I/O devices have the capability to perform atomic operations.
 
-To enable atomic operations routing between multiple Root Ports, each Root Port must show this capability through the atomic operations routing supported bit in the DevCap2 register.
+To enable atomic operations routing between multiple Root Ports, each Root Port must show this capability through the atomic operations routing supported bit in the DevCap2 register. If the atomic operations routing support bit has value 1, routing is supported; if the value is 0, routing is not supported.
 
 If your system has a PCIe Express Switch it needs to support atomic operations routing. Atomic
 operations requests are permitted only if a component's ``DEVCTL2.ATOMICOP_REQUESTER_ENABLE``
@@ -67,9 +67,9 @@ initiates two write operations to two different targets. As an example scenario,
 1. Write to another GPU memory
 2. Write to system memory to indicate transfer complete
 
-In the above scenario, the write operations are routed off to different ends of the computer. However, it should be ensured that the order of the operation should be, write to GPU completion followed by write to system memory to indicate transfer complete.
+In the above scenario, the write operations are routed off to different locations. However, it should be ensured that the order of the operation is, write to GPU completion followed by write to system memory to indicate transfer complete.
 
-I/O Devices and CPUs with PCIe Atomics Support
+I/O devices and CPUs with PCIe atomics support
 ------------------------------------------------
 
 For optimum use of PCIe 3.0 atomic operations features, PCIe supported I/O devices are need. Some of the I/O devices with PCIe atomic support are: 
