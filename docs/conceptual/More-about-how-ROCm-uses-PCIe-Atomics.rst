@@ -8,12 +8,12 @@ How ROCm Uses PCIe Atomics
 AMD ROCm is an extension of the Heterogeneous System Architecture (HSA). To meet the requirement of an HSA-compliant system, ROCm must support queuing model, memory model, signaling, and synchronization protocols. To learn more about the requirement of HSA-compliant system, see 
 `HSA Platform System Architecture Specification <http://hsafoundation.com/wp-content/uploads/2021/02/HSA-SysArch-1.2.pdf>`_.
 
-When memory operations like queuing, signaling, and synchronization needs to be performed across multiple CPUs and GPUs agents, platform atomics are required. Platform atomics ensures that atomic operations run synchronously without any interruption and conflict across multiple shared resources. Further, you will learn how platform atomics are supported in ROCm by Peripheral Component Interconnect Express 3.0 (PCIe™ 3.0).
+When memory operations like queuing, signaling, and synchronization needs to be performed across multiple CPUs and GPUs agents, platform atomics are required. Platform atomics ensures that atomic operations run synchronously without any interruption and conflict across multiple shared resources. Learn how platform atomics are supported in ROCm by Peripheral Component Interconnect Express 3.0 (PCIe™ 3.0).
 
 Usage of Platform Atomics in ROCm 
 =====================================
 
-Platform atomics are the set of atomic operations that performs Read Modify Write (RMW) actions across multiple processor, devices, and memory location synchronously without any interruption. Platform Atomics used in ROCm are:
+Platform atomics are the set of atomic operations that performs Read Modify Write (RMW) actions across multiple processor, devices, and memory location synchronously without any interruption. Platform atomics used in ROCm are:
 
 * Update HSA queue's ``read_dispatch_id``: 64 bit atomic add used by the command processor on the
   GPU agent. It updates the packet ID it processed.
@@ -26,10 +26,9 @@ An atomic operation is a sequence of computing instructions that are executed as
 
 PCIe in ROCm
 ======================
-AMD ROCm uses atomic RMW transactions which extends inter-processor synchronization
-mechanisms to Input/Output (I/O) devices starting from  PCIe 3.0. It supports the defined set of HSA capabilities needed for queuing and signaling memory operations. 
+AMD ROCm uses atomic RMW transactions that extends inter-processor synchronization mechanisms to Input/Output (I/O) devices starting from  PCIe 3.0. It supports the defined set of HSA capabilities needed for queuing and signaling memory operations. 
 
-The PCIe operates as a completer for atomic operations like:  
+PCIe operates as a completer for atomic operations like:  
 * ``CAS`` (Compare and Swap)
 * ``FetchADD``
 * ``SWAP``
@@ -39,7 +38,7 @@ The atomic operations are initiated by the I/O devices that support 32-bit, 64-b
 
 To learn more about the industry standards and specifications of PCIe, see `PCI-SIG Specification <https://pcisig.com/specifications>`_
 
-To learn more about PCIe and its capabilities, see the listed whitepapers:
+To learn more about PCIe and its capabilities, see the listed white papers:
 
 * `Atomic Read Modify Write Primitives by Intel <https://www.intel.es/content/dam/doc/white-paper/atomic-read-modify-write-primitives-i-o-devices-paper.pdf>`_
 * `PCI express 3 Accelerator White paper by Intel <https://www.intel.sg/content/dam/doc/white-paper/pci-express3-accelerator-white-paper.pdf>`_
@@ -60,8 +59,7 @@ To enable atomic operations routing between multiple Root Ports, each Root Port 
 If your system has a PCIe Express Switch it needs to support atomic operations routing. Atomic
 operations requests are permitted only if a component's ``DEVCTL2.ATOMICOP_REQUESTER_ENABLE``
 field is set. These requests can only be serviced if the upstream components support atomic operation
-completion and/or routing to a component which does. Atomic operations routing support=1, routing
-is supported; atomic operations routing support=0, routing is not supported.
+completion and/or can route it to a component that does. 
 
 ROCm also takes the advantage of PCIe ID based ordering technology for peer-to-peer (P2P) data transmission when the GPU
 initiates two write operations to two different targets. As an example scenario, there are two write operations:
@@ -69,7 +67,7 @@ initiates two write operations to two different targets. As an example scenario,
 1. Write to another GPU memory
 2. Write to system memory to indicate transfer complete
 
-In the above scenario, the write operations are routed off to different ends of the computer. However, it should be ensured that the order of the operation should be write to GPU completion followed by write to system memory to indicate transfer complete.
+In the above scenario, the write operations are routed off to different ends of the computer. However, it should be ensured that the order of the operation should be, write to GPU completion followed by write to system memory to indicate transfer complete.
 
 I/O Devices and CPUs with PCIe Atomics Support
 ------------------------------------------------
@@ -80,9 +78,9 @@ For optimum use of PCIe 3.0 atomic operations features, PCIe supported I/O devic
 * Cray Aries Interconnect
 * Xilinx 7 Series Devices
 
-For optimum memory access to data and resources Genz interconnect standard can be used. Genz is one of the bus technology with advanced I/O atomics operation support.
+For optimum memory access to data and resources Gen-Z interconnect standard can be used. Gen-Z is one of the bus technology with advanced I/O atomics operation support.
 
-ROCm requires CPUs that support PCIe™ atomics. Modern CPUs after the release of 1st generation AMD Zen CPU and Intel™ Haswell support PCIe atomics. Some of the PCIe Endpoints with support beyond AMD Ryzen, AMD EPYC, Intel™ Haswell or newer CPUs with PCIe Generation 3.0 support are:
+ROCm requires CPUs that support PCIe atomics. Modern CPUs after the release of first generation AMD Zen CPU and Intel™ Haswell support PCIe atomics. Some of the PCIe Endpoints with support beyond AMD Ryzen, AMD EPYC, Intel™ Haswell, or newer CPUs with PCIe 3.0 support are:
 
 * Mellanox Bluefield SOC
 * Cavium Thunder X2
