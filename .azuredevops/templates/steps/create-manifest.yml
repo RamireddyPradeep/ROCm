@@ -76,7 +76,7 @@ steps:
       <tr>
         <td>$(Build.BuildNumber)</td>
         <td>$(Build.BuildId)</td>
-        <td><a href="$(release_repo.url)>$(release_repo.name)</a></td>
+        <td><a href="$(release_repo.url)">$(release_repo.name)</a></td>
         <td><a href="$(release_repo.url)/tree/$(release_repo.ref)">$(release_repo.ref)</a></td>
         <td><a href="$(release_repo.url)/commit/$(release_repo.version)">$(release_repo.version)</a></td>
       </tr>
