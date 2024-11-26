@@ -65,6 +65,7 @@ steps:
       cat <<EOF > $(Build.ArtifactStagingDirectory)/manifest_$(Build.DefinitionName).html
       <html>
       <h1>Manifest</h1>
+      <h2>Current></h2>
       <table border="1">
       <tr>
         <th>Build Number</th>
@@ -80,9 +81,9 @@ steps:
         <td><a href="$(release_repo.url)/tree/$(release_repo.ref)">$(release_repo.ref)</a></td>
         <td><a href="$(release_repo.url)/commit/$(release_repo.version)">$(release_repo.version)</a></td>
       </tr>
-      <tr>
-        <td>Dependencies</td>
-      </tr>
+      </table>
+      <h2>Dependencies</h2>
+      <table border="1">
       $(dependencies_rows)
       </table>
       </html>
