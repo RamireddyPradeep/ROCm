@@ -49,12 +49,15 @@ steps:
           dependencies: $dependencies
         }' > $(Build.ArtifactStagingDirectory)/manifest_$(Build.DefinitionName).json
 
-      dependencies_rows=$(cat $(Build.ArtifactStagingDirectory)/manifest_$(Build.DefinitionName).json | jq -r '.dependencies[] | \
-        "<tr><td>" + .buildNumber + "</td>" + \
-        "<td>" + .buildId + "</td>" + \
-        "<td><a href=\"" + .repoUrl + "\">" + .repoName + "</a></td>" + \
-        "<td>" + .repoRef + "</td>" + \
-        "<td>" + .repoVersion + "</td></tr>"')  
+      dependencies_rows=$(cat $(Build.ArtifactStagingDirectory)/manifest_$(Build.DefinitionName).json | \
+        jq -r '
+          .dependencies[] | 
+          "<tr><td>" + .buildNumber + "</td>" + 
+          "<td>" + .buildId + "</td>" + 
+          "<td><a href=\"" + .repoUrl + "\">" + .repoName + "</a></td>" + 
+          "<td>" + .repoRef + "</td>" + 
+          "<td>" + .repoVersion + "</td></tr>"
+        ')
       echo "##vso[task.setvariable variable=dependencies_rows;]$dependencies_rows"
       cat $(Build.ArtifactStagingDirectory)/manifest_$(Build.DefinitionName).json
 - task: Bash@3
