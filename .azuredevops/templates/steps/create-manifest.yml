@@ -24,6 +24,7 @@ steps:
       dependencies=()
       for manifest_file in $(Pipeline.Workspace)/d/**/manifest_*.json; do
         current=$(jq '.current' "$manifest_file")
+        echo "Current: $current"
         dependencies+=("$current")
       done
       dependencies_json=$(printf '%s\n' "${dependencies[@]}" | jq -s '.')
