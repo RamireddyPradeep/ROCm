@@ -65,7 +65,7 @@ steps:
       cat <<EOF > $(Build.ArtifactStagingDirectory)/manifest_$(Build.DefinitionName).html
       <html>
       <h1>Manifest</h1>
-      <h2>Current></h2>
+      <h2>Current</h2>
       <table border="1">
       <tr>
         <th>Build Number</th>

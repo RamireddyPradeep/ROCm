@@ -47,4 +47,5 @@ jobs:
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/test.yml
     parameters:
       componentName: rocm-cmake
+  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/create-manifest.yml
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/artifact-upload.yml

@@ -45,6 +45,7 @@ jobs:
       extraBuildFlags: >-
         -DCMAKE_PREFIX_PATH=$(Agent.BuildDirectory)/rocm
         -DROCRTST_BLD_TYPE=release
+  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/create-manifest.yml
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/artifact-upload.yml
 
 - job: rocminfo_testing
