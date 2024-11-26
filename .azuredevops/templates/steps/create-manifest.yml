@@ -63,6 +63,8 @@ steps:
         ')
       echo "##vso[task.setvariable variable=dependencies_rows;]$dependencies_rows"
       cat $(Build.ArtifactStagingDirectory)/manifest_$(Build.DefinitionName).json
+      echo "double: $dependencies_rows"
+      echo 'single: $dependencies_rows'
 - task: Bash@3
   displayName: Create manifest.html
   inputs:
