@@ -23,6 +23,7 @@ steps:
       ls -R $(Pipeline.Workspace)/d
       dependencies=()
       for manifest_file in $(Pipeline.Workspace)/d/**/manifest_*.json; do
+        echo "Manifest: $manifest_file"
         current=$(jq '.current' "$manifest_file")
         echo "Current: $current"
         dependencies+=("$current")
