@@ -38,13 +38,13 @@ steps:
         --argjson dependencies "$dependencies_json" \
         '{
           current: {
-            buildNumber: $buildNumber
+            buildNumber: $buildNumber,
             buildId: $buildId,
             repoId: $repoId,
             repoName: $repoName,
             repoRef: $repoRef,
             repoUrl: $repoUrl,
-            repoVersion: $repoVersion,
+            repoVersion: $repoVersion
           },
           dependencies: $dependencies
         }' > $(Build.ArtifactStagingDirectory)/manifest_$(Build.DefinitionName).json
