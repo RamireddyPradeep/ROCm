@@ -323,6 +323,7 @@ ROCmSoftwarePlatform
 ROCmValidationSuite
 ROCprofiler
 ROCr
+RPP
 RST
 RW
 Radeon
@@ -557,6 +558,7 @@ hipBLASLt
 hipBLASLt's
 hipCUB
 hipFFT
+hipFORT
 hipLIB
 hipRAND
 hipSOLVER
@@ -688,6 +690,8 @@ rocALUTION
 rocBLAS
 rocDecode
 rocFFT
+rocHPCG
+rocJPEG
 rocLIB
 rocMLIR
 rocPRIM
