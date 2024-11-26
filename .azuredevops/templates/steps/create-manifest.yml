@@ -33,6 +33,7 @@ steps:
         --arg repoId "$(release_repo.id)" \
         --arg repoName "$(release_repo.name)" \
         --arg repoRef "$(release_repo.ref)" \
+        --arg repoUrl "$(release_repo.url)" \
         --arg repoVersion "$(release_repo.version)" \
         --argjson dependencies "$dependencies_json" \
         '{
@@ -42,18 +43,18 @@ steps:
             repoId: $repoId,
             repoName: $repoName,
             repoRef: $repoRef,
+            repoUrl: $repoUrl,
             repoVersion: $repoVersion,
           },
           dependencies: $dependencies
         }' > $(Build.ArtifactStagingDirectory)/manifest_$(Build.DefinitionName).json
 
       dependencies_rows=$(cat $(Build.ArtifactStagingDirectory)/manifest_$(Build.DefinitionName).json | jq -r '.dependencies[] | \
-        "<tr><td>" + .buildNumber + \
-        "</td><td>" + .buildId + \
-        "</td><td>" + .repoId + \
-        "</td><td>" + .repoName + \
-        "</td><td>" + .repoRef + \
-        "</td><td><a href="$(release_repo.url)/commit/$(release_repo.version)">" + .repoVersion + "</a></td></tr>"')  
+        "<tr><td>" + .buildNumber + "</td>" + \
+        "<td>" + .buildId + "</td>" + \
+        "<td><a href=\"" + .repoUrl + "\">" + .repoName + "</a></td>" + \
+        "<td>" + .repoRef + "</td>" + \
+        "<td>" + .repoVersion + "</td></tr>"')  
       echo "##vso[task.setvariable variable=dependencies_rows;]$dependencies_rows"
       cat $(Build.ArtifactStagingDirectory)/manifest_$(Build.DefinitionName).json
 - task: Bash@3
@@ -64,34 +65,23 @@ steps:
       cat <<EOF > $(Build.ArtifactStagingDirectory)/manifest_$(Build.DefinitionName).html
       <html>
       <h1>Manifest</h1>
-      <h2>Current</h2>
       <table border="1">
       <tr>
-        <th>Repo ID</th>
+        <th>Build Number</th>
+        <th>Build ID</th>
         <th>Repo Name</th>
         <th>Repo Ref</th>
         <th>Repo Version</th>
-        <th>Build ID</th>
-        <th>Build Number</th>
       </tr>
       <tr>
         <td>$(Build.BuildNumber)</td>
         <td>$(Build.BuildId)</td>
-        <td>$(release_repo.id)</td>
-        <td>$(release_repo.name)</td>
-        <td>$(release_repo.ref)</td>
-        <td>$(release_repo.version)</td>
+        <td><a href="$(release_repo.url)>$(release_repo.name)</a></td>
+        <td><a href="$(release_repo.url)/tree/$(release_repo.ref)">$(release_repo.ref)</a></td>
+        <td><a href="$(release_repo.url)/commit/$(release_repo.version)">$(release_repo.version)</a></td>
       </tr>
-      </table>
-      <h2>Dependencies</h2>
-      <table border="1">
       <tr>
-        <th>Build Number</th>
-        <th>Build ID</th>
-        <th>Repo ID</th>
-        <th>Repo Name</th>
-        <th>Repo Ref</th>
-        <th>Repo Version</th>
+        <td>Dependencies</td>
       </tr>
       $(dependencies_rows)
       </table>
