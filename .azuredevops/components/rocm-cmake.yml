@@ -36,6 +36,14 @@ jobs:
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/checkout.yml
     parameters:
       checkoutRepo: ${{ parameters.checkoutRepo }}
+  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/local-artifact-download.yml
+    parameters:
+      buildType: specific
+      buildId: 15183
+  - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/local-artifact-download.yml
+    parameters:
+      buildType: specific
+      buildId: 15189
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/build-cmake.yml
 # extra steps for ctest suite
   - script: |
