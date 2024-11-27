@@ -11,6 +11,7 @@ parameters:
     - cmake
     - jq
     - libdrm-dev
+    - libsqlite3-dev
     - libstdc++-12-dev
     - ninja-build
     - python3-pip
@@ -96,14 +97,15 @@ jobs:
       script: |
         sudo ln -s $(Agent.BuildDirectory)/rocm /opt/rocm
         sed -i '/composable_kernel/d' requirements.txt
-        sudo cmake -P install_deps.cmake
+        mkdir -p $(Agent.BuildDirectory)/miopen-deps
+        cmake -P install_deps.cmake --prefix $(Agent.BuildDirectory)/miopen-deps
         sudo rm -rf /opt/rocm
   - template: ${{ variables.CI_TEMPLATE_PATH }}/steps/build-cmake.yml
     parameters:
       extraBuildFlags: >-
         -DMIOPEN_BACKEND=HIP
         -DCMAKE_CXX_COMPILER=$(Agent.BuildDirectory)/rocm/llvm/bin/amdclang++
-        -DCMAKE_PREFIX_PATH=$(Agent.BuildDirectory)/rocm
+        -DCMAKE_PREFIX_PATH=$(Agent.BuildDirectory)/rocm;$(Agent.BuildDirectory)/miopen-deps
         -DAMDGPU_TARGETS=$(JOB_GPU_TARGET)
         -DMIOPEN_ENABLE_AI_KERNEL_TUNING=OFF
         -DMIOPEN_ENABLE_AI_IMMED_MODE_FALLBACK=OFF
@@ -163,13 +165,14 @@ jobs:
       script: |
         sudo ln -s $(Agent.BuildDirectory)/rocm /opt/rocm
         sed -i '/composable_kernel/d' requirements.txt
-        sudo cmake -P install_deps.cmake
+        mkdir -p $(Agent.BuildDirectory)/miopen-deps
+        cmake -P install_deps.cmake --prefix $(Agent.BuildDirectory)/miopen-deps
         sudo rm -rf /opt/rocm
   - task: CMake@1
     displayName: 'MIOpen Test CMake Flags'
     inputs:
       cmakeArgs: >-
-        -DCMAKE_PREFIX_PATH=$(Agent.BuildDirectory)/rocm;$(Build.SourcesDirectory)/bin
+        -DCMAKE_PREFIX_PATH=$(Agent.BuildDirectory)/rocm;$(Build.SourcesDirectory)/bin;$(Agent.BuildDirectory)/miopen-deps
         -DCMAKE_INSTALL_PREFIX=$(Agent.BuildDirectory)/rocm
         -DCMAKE_CXX_COMPILER=$(Agent.BuildDirectory)/rocm/llvm/bin/amdclang++
         -DCMAKE_C_COMPILER=$(Agent.BuildDirectory)/rocm/llvm/bin/amdclang
