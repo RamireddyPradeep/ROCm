@@ -39,8 +39,8 @@ To learn more about PCIe and its capabilities, consult the following white paper
 * `PCIe Generation 4 Base Specification includes atomic operations <https://astralvx.com/storage/2020/11/PCI_Express_Base_4.0_Rev0.3_February19-2014.pdf>`_
 * `Xilinx PCIe Ultrascale White paper <https://docs.xilinx.com/v/u/8OZSA2V1b1LLU2rRCDVGQw>`_
 
-Working of PCIe 3.0 atomic operations in ROCm
--------------------------------------------------
+Working of PCIe 3.0 in ROCm for atomic operations 
+---------------------------------------------------
 PCIe 3.0 allows atomic operations to be requested by, routed through, and completed by PCIe components. Routing and completion do not require software support. Component support for each can be identified by the Device Capabilities 2 (DevCap2) register. Upstream
 bridges need to have atomic operations routing enabled. If not enabled, the atomic operations will fail even if the 
 PCIe endpoint and the PCIe I/O devices can perform atomic operations.
@@ -63,7 +63,7 @@ In the above scenario, the two write operations are routed off to different loca
 I/O devices and CPUs with PCIe atomics support
 ------------------------------------------------
 
-For optimum use of PCIe 3.0 atomic operations features, PCIe-supported I/O devices are needed. Some of the I/O devices with PCIe atomic support are: 
+For optimum compatibility and use of PCIe 3.0 for atomic operations, PCIe-supported I/O devices are needed. Some of the I/O devices with PCIe atomic support are: 
 
 * Mellanox ConnectX-5 InfiniBand Card
 * Cray Aries Interconnect
